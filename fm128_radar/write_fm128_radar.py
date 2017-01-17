@@ -48,6 +48,7 @@ class write_fm128_radar:
     self.f.write("\n")
     self.f.write("%s" % ("#-----------------------------#"))
     self.f.write("\n")
+    self.f.write("\n")
 
   def close_file(self):
     '''
@@ -70,6 +71,7 @@ class write_fm128_radar:
     self.f.write("\n")
     self.f.write("%s" % (
       '#---------------------------------------------------------#'))
+    self.f.write("\n")
     self.f.write("\n")
 
   def write_data(self, date, lat, lon, elv0, levs, elv, rv_data, rv_qc, rv_err,
