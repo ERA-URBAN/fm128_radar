@@ -17,21 +17,20 @@ class write_fm128_radar:
       self.init_file(nrad, outfile)
       for r_int in range(0, nrad):
         max_levs = numpy.shape(elv[r_int])[0]
+        np = self.get_number_of_points(rf[r_int])
         # number of points: degrees * distance
-        np = numpy.shape(elv[r_int])[1] * numpy.shape(elv[r_int])[2]
         self.write_header(radar_name[r_int], lon0[r_int], lat0[r_int],
                           elv0[r_int], date[r_int], np[r_int], max_levs[r_int])
         self.write_data(date[r_int], lat[r_int], lon[r_int], elv0[r_int],
-                        max_levs[r_int], elv[r_int], rv[r_int], rv_qc[r_int],
+                        elv[r_int], rv[r_int], rv_qc[r_int],
                         rv_err[r_int], rf[r_int], rf_qc[r_int], rf_err[r_int])
     else:
       # one radar in output file
       self.init_file(1, outfile)
       max_levs = numpy.shape(elv)[0]
-      # number of points: degrees * distance
-      np = numpy.shape(elv)[1] * numpy.shape(elv)[2]
+      np = self.get_number_of_points(rf)
       self.write_header(radar_name, lon0, lat0, elv0, date, np, max_levs)
-      self.write_data(date, lat, lon, elv0, max_levs, elv, rv, rv_qc, rv_err,
+      self.write_data(date, lat, lon, elv0, elv, rv, rv_qc, rv_err,
                       rf, rf_qc, rf_err)
     self.close_file()
 
@@ -74,7 +73,39 @@ class write_fm128_radar:
     self.f.write("\n")
     self.f.write("\n")
 
-  def write_data(self, date, lat, lon, elv0, levs, elv, rv_data, rv_qc, rv_err,
+  def get_number_of_points(self, rf):
+    '''
+    Return the total number of points for a radar
+    Input:
+      - (Masked) array of reflectivity points
+    
+    Output:
+      - For a masked array this all all points that are not masked
+      - For a normal array this is all points
+    '''
+    try:
+      # masked array
+      return len(rf.count(axis=0).flatten().nonzero()[0])
+    except AttributeError:
+      # Fallback for a non-masked array
+      return len(rf[0,:].flatten())
+
+
+  def get_levs_point(self, rf_data_point):
+    '''
+    Return the number of levels for a data point.
+    Input:
+      - (Masked) array of reflectivity data points.
+    Output:
+      - For a masked array this all all points that are not masked
+      - For a normal array this is all points
+    '''
+    try:
+      return rf_data_point.count()
+    except AttributeError:
+      return len(rf_data_point)
+
+  def write_data(self, date, lat, lon, elv0, elv, rv_data, rv_qc, rv_err,
                  rf_data, rf_qc, rf_err):
     '''
     Write radar measurements to the output file
@@ -85,16 +116,29 @@ class write_fm128_radar:
     # loop over horizontal data points
     for i in range(0, numpy.shape(lat)[0]):
       for j in range(0, numpy.shape(lat)[1]):
-        self.f.write(fmt % ('FM-128 RADAR', hor_spacing, date, hor_spacing,
-                            lat[i,j], hor_spacing, lon[i,j], hor_spacing, elv0,
-                            hor_spacing, levs))
-        self.f.write("\n")
-        # loop over vertical elevations for each radar
-        for m in range(0, numpy.shape(elv)[0]): # count_nz(i)):
-          self.f.write(fmt_2 % (hor_spacing, elv[m,i,j],
-                                rv_data[m,i,j], rv_qc[m,i,j], rv_err[m,i,j],
-                                hor_spacing,
-                                rf_data[m,i,j], rf_qc[m,i,j], rf_err[m,i,j],
-                                hor_spacing))
+        levs = self.get_levs_point(rf_data[:,i,j])
+        if levs > 0:
+          # Only write the output data if there is at least 1 vertical level
+          # with reflectivity data
+          self.f.write(fmt % ('FM-128 RADAR', hor_spacing, date, hor_spacing,
+                              lat[i,j], hor_spacing, lon[i,j], hor_spacing,
+                              elv0, hor_spacing, levs))
           self.f.write("\n")
+          # loop over vertical elevations for each radar
+          for m in range(0, numpy.shape(elv)[0]): # count_nz(i)):
+            try:
+              if not rf_data.mask[m,i,j]:
+                self.f.write(fmt_2 % (hor_spacing, elv[m,i,j],
+                                      rv_data[m,i,j], rv_qc[m,i,j],
+                                      rv_err[m,i,j], hor_spacing,
+                                      rf_data[m,i,j], rf_qc[m,i,j],
+                                      rf_err[m,i,j], hor_spacing))
+                self.f.write("\n")
+            except AttributeError:
+              self.f.write(fmt_2 % (hor_spacing, elv[m,i,j],
+                                    rv_data[m,i,j], rv_qc[m,i,j],
+                                    rv_err[m,i,j], hor_spacing,
+                                    rf_data[m,i,j], rf_qc[m,i,j],
+                                    rf_err[m,i,j], hor_spacing))
+              self.f.write("\n")
 
