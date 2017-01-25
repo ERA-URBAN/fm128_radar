@@ -14,14 +14,16 @@ class write_fm128_radar:
     if (numpy.shape(radar_name) == True and numpy.shape(radar_name)>1):
       # multiple radars in output file
       nrad = numpy.shape(radar_name)
+      # convert date to string
+      dstring = [d.strftime('%Y-%m-%d %H:%M:%S') for d in date]
       self.init_file(nrad, outfile)
       for r_int in range(0, nrad):
         max_levs = numpy.shape(elv[r_int])[0]
         np = self.get_number_of_points(rf[r_int])
         # number of points: degrees * distance
         self.write_header(radar_name[r_int], lon0[r_int], lat0[r_int],
-                          elv0[r_int], date[r_int], np[r_int], max_levs[r_int])
-        self.write_data(date[r_int], lat[r_int], lon[r_int], elv0[r_int],
+                          elv0[r_int], dstring[r_int], np[r_int], max_levs[r_int])
+        self.write_data(dstring[r_int], lat[r_int], lon[r_int], elv0[r_int],
                         elv[r_int], rv[r_int], rv_qc[r_int],
                         rv_err[r_int], rf[r_int], rf_qc[r_int], rf_err[r_int])
     else:
@@ -29,8 +31,9 @@ class write_fm128_radar:
       self.init_file(1, outfile)
       max_levs = numpy.shape(elv)[0]
       np = self.get_number_of_points(rf)
-      self.write_header(radar_name, lon0, lat0, elv0, date, np, max_levs)
-      self.write_data(date, lat, lon, elv0, elv, rv, rv_qc, rv_err,
+      dstring = date.strftime('%Y-%m-%d %H:%M:%S')
+      self.write_header(radar_name, lon0, lat0, elv0, dstring, np, max_levs)
+      self.write_data(dstring, lat, lon, elv0, elv, rv, rv_qc, rv_err,
                       rf, rf_qc, rf_err)
     self.close_file()
 
