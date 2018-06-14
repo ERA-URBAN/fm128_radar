@@ -150,7 +150,8 @@ class write_fm128_radar:
         self.f.write("\n")
         self.f.write("\n")
 
-    def get_number_of_points(self, rf):
+    @staticmethod
+    def get_number_of_points(rf):
         '''
         Return the total number of points for a radar:
             - For a masked array this all all points that are not masked
@@ -167,7 +168,8 @@ class write_fm128_radar:
             # Fallback for a non-masked array
             return len(rf[0, :].flatten())
 
-    def get_levs_point(self, rf_data_point):
+    @staticmethod
+    def get_levs_point(rf_data_point):
         '''
         Return the number of levels for a data point
         - For a masked array this all all points that are not masked
