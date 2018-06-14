@@ -215,7 +215,6 @@ class write_fm128_radar:
         :type rf_err: numpy.ndarray
         '''
         fmt = "%12s%3s%19s%2s%12.3f%2s%12.3f%2s%8.1f%2s%6i"
-        fmt_2 = "%3s%12.1f%12.3f%4i%12.3f%2s%12.3f%4i%12.3f%2s"
         hor_spacing = ''
         # loop over horizontal data points
         for m in range(0, numpy.shape(lat)[0]):  # vertical levels
@@ -235,21 +234,23 @@ class write_fm128_radar:
                         # loop over vertical elevations for each radar
                         try:
                             if not rf_data.mask[m, i, j]:
-                                self.f.write(fmt_2 %
-                                             (hor_spacing, elv[m, i, j],
-                                              rv_data[m, i, j], rv_qc[m, i, j],
-                                              rv_err[m, i, j], hor_spacing,
-                                              rf_data[m, i, j], rf_qc[m, i, j],
-                                              rf_err[m, i, j], hor_spacing))
-                                self.f.write("\n")
+                                self.write_measurement_line(hor_spacing,
+                                                            elv[m,i,j],
+                                                            rv_data[m,i,j],
+                                                            rv_qc[m,i,j],
+                                                            rv_err[m,i,j],
+                                                            rf_data[m,i,j],
+                                                            rf_qc[m,i,j],
+                                                            rf_err[m,i,j])
                         except AttributeError:
-                            self.f.write(fmt_2 %
-                                         (hor_spacing, elv[m, i, j],
-                                          rv_data[m, i, j], rv_qc[m, i, j],
-                                          rv_err[m, i, j], hor_spacing,
-                                          rf_data[m, i, j], rf_qc[m, i, j],
-                                          rf_err[m, i, j], hor_spacing))
-                            self.f.write("\n")
+                            self.write_measurement_line(hor_spacing,
+                                                        elv[m,i,j],
+                                                        rv_data[m,i,j],
+                                                        rv_qc[m,i,j],
+                                                        rv_err[m,i,j],
+                                                        rf_data[m,i,j],
+                                                        rf_qc[m,i,j],
+                                                        rf_err[m,i,j])
 
     def write_data_single(self, date, lat, lon, elv0, elv, rv_data, rv_qc,
                           rv_err, rf_data, rf_qc, rf_err):
@@ -299,18 +300,49 @@ class write_fm128_radar:
                     for m in range(0, numpy.shape(elv)[0]):
                         try:
                             if not rf_data.mask[m, i, j]:
-                                self.f.write(fmt_2 %
-                                             (hor_spacing, elv[m, i, j],
-                                              rv_data[m, i, j], rv_qc[m, i, j],
-                                              rv_err[m, i, j], hor_spacing,
-                                              rf_data[m, i, j], rf_qc[m, i, j],
-                                              rf_err[m, i, j], hor_spacing))
-                                self.f.write("\n")
+                                self.write_measurement_line(hor_spacing,
+                                                            elv[m,i,j],
+                                                            rv_data[m,i,j],
+                                                            rv_qc[m,i,j],
+                                                            rv_err[m,i,j],
+                                                            rf_data[m,i,j],
+                                                            rf_qc[m,i,j],
+                                                            rf_err[m,i,j])
                         except AttributeError:
-                            self.f.write(fmt_2 %
-                                         (hor_spacing, elv[m, i, j],
-                                          rv_data[m, i, j], rv_qc[m, i, j],
-                                          rv_err[m, i, j], hor_spacing,
-                                          rf_data[m, i, j], rf_qc[m, i, j],
-                                          rf_err[m, i, j], hor_spacing))
-                            self.f.write("\n")
+                            self.write_measurement_line(hor_spacing,
+                                                        elv[m,i,j],
+                                                        rv_data[m,i,j],
+                                                        rv_qc[m,i,j],
+                                                        rv_err[m,i,j],
+                                                        rf_data[m,i,j],
+                                                        rf_qc[m,i,j],
+                                                        rf_err[m,i,j])
+
+    def write_measurement_line(self, hor_spacing, elv,
+                               rv_data, rv_qc, rv_err,
+                               rf_data, rf_qc, rf_err):
+        '''
+        Write measurement line to output file
+        :param hor_spacing: horizontal spacing
+        :param elv: elevation of measurement point [m]
+        :param rv_data: radial velocity
+        :param rv_qc: quality control flag radial velocity
+        :param rv_err: error on radial velocity
+        :param rf_data: reflectivity
+        :param rf_qc: quality control flag reflectivity
+        :param rf_err: error on reflectivity measurement
+        :type elv: float
+        :type rv_data: float
+        :type rv_qc: float
+        :type rv_err: float
+        :type rf_data: float
+        :type rf_qc: float
+        :type rf_err: float
+        '''
+        fmt_2 = "%3s%12.1f%12.3f%4i%12.3f%2s%12.3f%4i%12.3f%2s"
+        self.f.write(fmt_2 % (hor_spacing, elv,
+                              rv_data, rv_qc,
+                              rv_err, hor_spacing,
+                              rf_data, rf_qc,
+                              rf_err, hor_spacing))
+        self.f.write("\n")
