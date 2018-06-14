@@ -17,7 +17,7 @@ setup(
     packages=['fm128_radar'],
     long_description=read('README.md'),
     classifiers=[
-        "Development Status :: 5 - Stable/Production",
+        "Development Status :: 5 - Production/Stable",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "License :: OSI Approved :: Apache Software License",
     ],
