@@ -232,17 +232,10 @@ class write_fm128_radar:
                                             levs))
                         self.f.write("\n")
                         # loop over vertical elevations for each radar
-                        try:
-                            if not rf_data.mask[m, i, j]:
-                                self.write_measurement_line(hor_spacing,
-                                                            elv[m,i,j],
-                                                            rv_data[m,i,j],
-                                                            rv_qc[m,i,j],
-                                                            rv_err[m,i,j],
-                                                            rf_data[m,i,j],
-                                                            rf_qc[m,i,j],
-                                                            rf_err[m,i,j])
-                        except AttributeError:
+                        if hasattr(rf_data, 'mask'):
+                            if rf_data.mask[m, i, j]:
+                                continue
+                        else:
                             self.write_measurement_line(hor_spacing,
                                                         elv[m,i,j],
                                                         rv_data[m,i,j],
@@ -280,7 +273,6 @@ class write_fm128_radar:
         :type rf_err: numpy.ndarray
         '''
         fmt = "%12s%3s%19s%2s%12.3f%2s%12.3f%2s%8.1f%2s%6i"
-        fmt_2 = "%3s%12.1f%12.3f%4i%12.3f%2s%12.3f%4i%12.3f%2s"
         hor_spacing = ''
         # loop over horizontal data points
         for i in range(0, numpy.shape(lat)[0]):
@@ -298,17 +290,10 @@ class write_fm128_radar:
                     self.f.write("\n")
                     # loop over vertical elevations for each radar
                     for m in range(0, numpy.shape(elv)[0]):
-                        try:
-                            if not rf_data.mask[m, i, j]:
-                                self.write_measurement_line(hor_spacing,
-                                                            elv[m,i,j],
-                                                            rv_data[m,i,j],
-                                                            rv_qc[m,i,j],
-                                                            rv_err[m,i,j],
-                                                            rf_data[m,i,j],
-                                                            rf_qc[m,i,j],
-                                                            rf_err[m,i,j])
-                        except AttributeError:
+                        if hasattr(rf_data, 'mask'):
+                            if rf_data.mask[m, i, j]:
+                                continue
+                        else:
                             self.write_measurement_line(hor_spacing,
                                                         elv[m,i,j],
                                                         rv_data[m,i,j],
