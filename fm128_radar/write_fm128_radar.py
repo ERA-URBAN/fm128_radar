@@ -121,6 +121,7 @@ class write_fm128_radar:
     def write_header(self, radar_name, lon0, lat0, elv0, date, np, max_levs):
         '''
         Write the radar specific header to the output file
+
         :param radar_name: name of radar
         :param lat0: latitude of radar station [deg]
         :param lon0: longitude of radar station [deg]
@@ -156,6 +157,7 @@ class write_fm128_radar:
         Return the total number of points for a radar:
             - For a masked array this all all points that are not masked
             - For a normal array this is all points
+ 
         :param rf: (masked) array of reflectivity measurements
         :type rf: numpy.ndarray
         :returns: total number of measurement points of the radar
@@ -174,6 +176,7 @@ class write_fm128_radar:
         Return the number of levels for a data point
         - For a masked array this all all points that are not masked
         - For a normal array this is all points
+
         :param rf_data_point: (masked) array of reflectivity data points
         :type rf_data_point: numpy.ndarray
         :returns: number of levels for a data point
@@ -191,6 +194,7 @@ class write_fm128_radar:
                    rf_data, rf_qc, rf_err):
         '''
         Write radar measurements to the output file
+
         :param date: date of observation
         :param lat: latitude of measurement point [deg]
         :param lon: longitude of measurement point [deg]
@@ -249,6 +253,7 @@ class write_fm128_radar:
                           rv_err, rf_data, rf_qc, rf_err):
         '''
         Write radar measurements to the output file
+
         :param date: date of observation
         :param lat: latitude of measurement point [deg]
         :param lon: longitude of measurement point [deg]
@@ -308,6 +313,7 @@ class write_fm128_radar:
                                rf_data, rf_qc, rf_err):
         '''
         Write measurement line to output file
+
         :param hor_spacing: horizontal spacing
         :param elv: elevation of measurement point [m]
         :param rv_data: radial velocity
