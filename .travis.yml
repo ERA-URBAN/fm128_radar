@@ -6,3 +6,10 @@ python:
 install:
   - pip install .
   - pip install -r requirements.txt
+  - pip install -r requirements-test.txt
+  - pip install -r requirements-docs.txt
+script:
+  - py.test --cov=pyfrbcatdb --cov-report term --cov-report xml:cov.sml tests/
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
