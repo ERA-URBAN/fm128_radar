@@ -4,6 +4,8 @@
 [![codecov](https://codecov.io/gh/ERA-URBAN/fm128_radar/branch/master/graph/badge.svg)](https://codecov.io/gh/ERA-URBAN/fm128_radar)
 [![Documentation Status](https://readthedocs.org/projects/fm128-radar/badge/?version=latest)](https://fm128-radar.readthedocs.io/en/latest/?badge=latest)
 [![PyPI version](https://badge.fury.io/py/fm128_radar.svg)](https://badge.fury.io/py/fm128_radar)
+[![DOI](https://zenodo.org/badge/77047230.svg)](https://zenodo.org/badge/latestdoi/77047230)
+
 
 # fm128_radar
 
