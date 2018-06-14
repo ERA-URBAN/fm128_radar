@@ -20,4 +20,4 @@ license: Apache-2.0
 message: "If you use this software, please cite it using these metadata."
 repository-code: "https://github.com/ERA-URBAN/fm128_radar"
 title: fm128_radar
-version: "0.1.0"
+version: "1.0.0"
