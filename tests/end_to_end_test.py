@@ -58,8 +58,8 @@ class end2endtest(unittest.TestCase):
         self.longitude = 11.2 * np.ones((2, 3, 4))
         self.altitude = 422 * np.ones((2, 2, 3, 4))
         self.lat0 = [50.3, 41.2]
-        self.lon0 = [10.6, 9, 4]
-        self.elv0 = [11.4, 12, 2]
+        self.lon0 = [10.6, 9.4]
+        self.elv0 = [11.4, 12.2]
         self.rf = 4.2 * np.ones((2, 2, 3, 4))
         self.rf_qc = 0 * np.ones((2, 2, 3, 4))
         self.rf_err = 1.3 * np.ones((2, 2, 3, 4))
@@ -88,8 +88,8 @@ class end2endtest(unittest.TestCase):
         self.longitude = 11.2 * np.ones((2, 2, 3, 4))
         self.altitude = 422 * np.ones((2, 2, 3, 4))
         self.lat0 = [50.3, 41.2]
-        self.lon0 = [10.6, 9, 4]
-        self.elv0 = [11.4, 12, 2]
+        self.lon0 = [10.6, 9.4]
+        self.elv0 = [11.4, 12.2]
         self.rf = 4.2 * np.ones((2, 2, 3, 4))
         self.rf_qc = 0 * np.ones((2, 2, 3, 4))
         self.rf_err = 1.3 * np.ones((2, 2, 3, 4))
