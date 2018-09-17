@@ -28,5 +28,5 @@ fm128_radar is installable via pip:
    :target: https://fm128-radar.readthedocs.io/en/latest/?badge=latest
 .. |PyPI version| image:: https://badge.fury.io/py/fm128-radar.svg
     :target: https://badge.fury.io/py/fm128-radar
-.. |DOI| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.1420142.svg
-   :target: https://doi.org/10.5281/zenodo.1420142
+.. |DOI| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.1420223.svg
+   :target: https://doi.org/10.5281/zenodo.1420223
