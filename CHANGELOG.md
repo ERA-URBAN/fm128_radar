@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.1.0
+
+* Fix indentation bug that caused some observations to be ignored
+
 ### 1.0.0
 
 * Stable release

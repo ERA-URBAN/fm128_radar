@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
     name = "fm128_radar",
-    version = "1.0.0",
+    version = "1.1.0",
     author = "Ronald van Haren",
     author_email = "r.vanharen@esciencecenter.nl",
     description = ("A python library to convert netCDF files to WRFDA "
