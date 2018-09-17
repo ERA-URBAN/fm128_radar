@@ -239,15 +239,15 @@ class write_fm128_radar:
                         if hasattr(rf_data, 'mask'):
                             if rf_data.mask[m, i, j]:
                                 continue
-                        else:
-                            self.write_measurement_line(hor_spacing,
-                                                        elv[m,i,j],
-                                                        rv_data[m,i,j],
-                                                        rv_qc[m,i,j],
-                                                        rv_err[m,i,j],
-                                                        rf_data[m,i,j],
-                                                        rf_qc[m,i,j],
-                                                        rf_err[m,i,j])
+                            else:
+                                self.write_measurement_line(hor_spacing,
+                                                            elv[m,i,j],
+                                                            rv_data[m,i,j],
+                                                            rv_qc[m,i,j],
+                                                            rv_err[m,i,j],
+                                                            rf_data[m,i,j],
+                                                            rf_qc[m,i,j],
+                                                            rf_err[m,i,j])
 
     def write_data_single(self, date, lat, lon, elv0, elv, rv_data, rv_qc,
                           rv_err, rf_data, rf_qc, rf_err):
@@ -298,15 +298,15 @@ class write_fm128_radar:
                         if hasattr(rf_data, 'mask'):
                             if rf_data.mask[m, i, j]:
                                 continue
-                        else:
-                            self.write_measurement_line(hor_spacing,
-                                                        elv[m,i,j],
-                                                        rv_data[m,i,j],
-                                                        rv_qc[m,i,j],
-                                                        rv_err[m,i,j],
-                                                        rf_data[m,i,j],
-                                                        rf_qc[m,i,j],
-                                                        rf_err[m,i,j])
+                            else:
+                                self.write_measurement_line(hor_spacing,
+                                                            elv[m,i,j],
+                                                            rv_data[m,i,j],
+                                                            rv_qc[m,i,j],
+                                                            rv_err[m,i,j],
+                                                            rf_data[m,i,j],
+                                                            rf_qc[m,i,j],
+                                                            rf_err[m,i,j])
 
     def write_measurement_line(self, hor_spacing, elv,
                                rv_data, rv_qc, rv_err,
