@@ -15,7 +15,7 @@ setup(
     keywords = "WRFDA netCDF WRF radar",
     url = "https://github.com/ERA-URBAN/fm128_radar",
     packages=['fm128_radar'],
-    long_description=read('README.md'),
+    long_description=read('README.rst'),
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Topic :: Software Development :: Libraries :: Python Modules",
